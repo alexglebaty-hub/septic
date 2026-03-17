@@ -522,7 +522,8 @@ function triggerLose(reasonMsg) {
 function update(dt) {
     if (gameState !== 'PLAYING') return;
     gameTime += dt;
-    player.speed = 380 + (upgrades.speed - 1) * 80;
+    const isMobile = window.innerWidth <= 900 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    player.speed = (isMobile ? 300 : 380) + (upgrades.speed - 1) * 80;
 
     // Timer
     timeLeft -= dt;
