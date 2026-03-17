@@ -1,1 +1,110 @@
-<h1>Game septic</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cottage Village Mini-Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- HUD -->
+        <div id="hud" class="hidden">
+            <div id="top-bar">
+                <div class="hud-panel" id="stats-panel">
+                    <div id="level-display" style="font-weight: 800; color: #3b82f6;">Уровень: 1</div>
+                    <div>⏱️ Время: <span id="time-display">02:00</span></div>
+                    <div>💰 Заработано: <span id="money-display" style="color: #fbbf24;">0</span> ₽</div>
+                    <div>🛠️ Установлено: <span id="score" style="color: #10b981;">0</span> / <span id="total-score">0</span></div>
+                </div>
+
+                <div class="hud-panel" id="smell-panel">
+                    <div id="smell-title">Уровень запаха</div>
+                    <div id="smell-bar-bg">
+                        <div id="smell-bar-fill"></div>
+                    </div>
+                </div>
+                
+                <div id="minimap-container">
+                    <canvas id="minimapCanvas" width="160" height="120"></canvas>
+                </div>
+            </div>
+
+            <div id="controls-hint" class="desktop-only">Движение: WASD/Стрелки | Действие: E/Пробел | Избегайте грузовиков!</div>
+        </div>
+
+        <!-- Mobile Touch Controls -->
+        <div id="mobile-controls" class="hidden">
+            <div id="joystick-zone">
+                <div id="joystick-base">
+                    <div id="joystick-stick"></div>
+                </div>
+            </div>
+            <div id="action-zone">
+                <button id="action-btn">УСТАНОВИТЬ</button>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="overlay">
+            <h1>Спасатель Деревни</h1>
+            <p>В деревне ужасный запах! Замените все старые коричневые пирамиды на новые современные септики, пока не истекло время.</p>
+            <p class="warning-text">⚠️ Внимание: Избегайте движущихся ассенизаторских машин!</p>
+            <button id="start-btn">Начать игру</button>
+        </div>
+
+        <!-- Level Complete Screen -->
+        <div id="level-screen" class="overlay hidden">
+            <h1>Уровень пройден!</h1>
+            <p>Вы успешно установили все септики на этом участке.</p>
+            <div class="stats-box">
+                <p>Осталось времени: <span id="ls-time"></span></p>
+                <p>Всего заработано: <span id="ls-money" style="color: #fbbf24;">0</span> ₽</p>
+            </div>
+            
+            <div id="shop-container" style="background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.2);">
+                <h3 style="margin: 0 0 10px 0; font-size: 1.2rem; color: #94a3b8;">УЛУЧШЕНИЯ</h3>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="shop-btn" id="btn-upg-speed" onclick="buyUpgrade('speed')">
+                        Бег (Ур.<span id="upg-speed-lvl">1</span>)<br><span class="price-tag">300k ₽</span>
+                    </button>
+                    <button class="shop-btn" id="btn-upg-time" onclick="buyUpgrade('time')">
+                        Время (Ур.<span id="upg-time-lvl">1</span>)<br><span class="price-tag">350k ₽</span>
+                    </button>
+                    <button class="shop-btn" id="btn-upg-install" onclick="buyUpgrade('install')">
+                        Быстрый монтаж (Ур.<span id="upg-install-lvl">1</span>)<br><span class="price-tag">450k ₽</span>
+                    </button>
+                </div>
+            </div>
+
+            <button id="next-level-btn" class="action-button">След. Уровень</button>
+        </div>
+
+        <!-- Win Screen (Final) -->
+        <div id="win-screen" class="overlay hidden">
+            <h1>Деревня Спасена!</h1>
+            <p>Вы прошли все уровни и спасли деревню!</p>
+            <div class="stats-box">
+                <p>Осталось времени: <span id="ws-time"></span></p>
+                <p>Установлено: <span id="ws-score" style="color: #10b981;">0</span></p>
+                <p>Всего заработано: <span id="ws-money" style="color: #fbbf24;">0</span> ₽</p>
+            </div>
+            <button id="restart-btn" class="action-button">Играть снова</button>
+        </div>
+
+        <!-- Lose Screen (Time/Truck) -->
+        <div id="lose-screen" class="overlay hidden">
+            <h1 id="lose-title">Игра окончена!</h1>
+            <p id="lose-reason">Время вышло.</p>
+            <button id="retry-btn" class="action-button">Попробовать снова</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
