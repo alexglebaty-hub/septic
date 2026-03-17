@@ -205,6 +205,31 @@ actionBtn.addEventListener('touchstart', (e) => { e.preventDefault(); keys.e = t
 actionBtn.addEventListener('touchend', (e) => { e.preventDefault(); keys.e = false; });
 
 // Check mobile on resize
+function isMobileDevice() {
+    return window.innerWidth <= 900 ||
+        ('ontouchstart' in window) ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches;
+}
+
+function updateMobileControlsVisibility() {
+    if (!mobileControls) return;
+
+    if (isMobileDevice() && gameState === 'PLAYING') {
+        mobileControls.classList.remove('hidden');
+        mobileControls.style.display = 'block';
+        mobileControls.style.visibility = 'visible';
+        mobileControls.style.opacity = '1';
+        mobileControls.style.pointerEvents = 'auto';
+    } else {
+        mobileControls.classList.add('hidden');
+        mobileControls.style.display = '';
+        mobileControls.style.visibility = '';
+        mobileControls.style.opacity = '';
+        mobileControls.style.pointerEvents = '';
+    }
+}
+
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -213,13 +238,22 @@ function resize() {
     mapWidth = Math.max(2600, canvas.width);
     mapHeight = Math.max(2000, canvas.height);
 
-    if (window.innerWidth <= 768 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0) {
-        if (gameState === 'PLAYING') mobileControls.classList.remove('hidden');
-    } else {
-        mobileControls.classList.add('hidden');
-    }
+    updateMobileControlsVisibility();
 }
+
 window.addEventListener('resize', resize);
+window.addEventListener('orientationchange', () => {
+    setTimeout(resize, 50);
+    setTimeout(resize, 250);
+});
+window.addEventListener('load', () => {
+    setTimeout(resize, 50);
+    setTimeout(resize, 250);
+});
+window.addEventListener('pageshow', () => {
+    setTimeout(resize, 50);
+    setTimeout(resize, 250);
+});
 
 // Player
 const player = {
@@ -1026,6 +1060,19 @@ function startNextLevel() {
     gameState = 'PLAYING';
 
     resize();
+    updateMobileControlsVisibility();
+    requestAnimationFrame(() => {
+        resize();
+        updateMobileControlsVisibility();
+    });
+    setTimeout(() => {
+        resize();
+        updateMobileControlsVisibility();
+    }, 100);
+    setTimeout(() => {
+        resize();
+        updateMobileControlsVisibility();
+    }, 300);
 
     lastFrameTime = performance.now();
     gameLoop();
