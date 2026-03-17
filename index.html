@@ -64,9 +64,25 @@
             <p>Вы успешно установили все септики на этом участке.</p>
             <div class="stats-box">
                 <p>Осталось времени: <span id="ls-time"></span></p>
-                <p>Заработано: <span id="ls-money" style="color: #fbbf24;">0</span> ₽</p>
+                <p>Всего заработано: <span id="ls-money" style="color: #fbbf24;">0</span> ₽</p>
             </div>
-            <button id="next-level-btn" class="action-button">Дальше</button>
+            
+            <div id="shop-container" style="background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.2);">
+                <h3 style="margin: 0 0 10px 0; font-size: 1.2rem; color: #94a3b8;">УЛУЧШЕНИЯ</h3>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="shop-btn" id="btn-upg-speed" onclick="buyUpgrade('speed')">
+                        Бег (Ур.<span id="upg-speed-lvl">1</span>)<br><span class="price-tag">300k ₽</span>
+                    </button>
+                    <button class="shop-btn" id="btn-upg-time" onclick="buyUpgrade('time')">
+                        Время (Ур.<span id="upg-time-lvl">1</span>)<br><span class="price-tag">350k ₽</span>
+                    </button>
+                    <button class="shop-btn" id="btn-upg-install" onclick="buyUpgrade('install')">
+                        Быстрый монтаж (Ур.<span id="upg-install-lvl">1</span>)<br><span class="price-tag">450k ₽</span>
+                    </button>
+                </div>
+            </div>
+
+            <button id="next-level-btn" class="action-button">След. Уровень</button>
         </div>
 
         <!-- Win Screen (Final) -->
