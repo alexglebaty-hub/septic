@@ -335,51 +335,43 @@ button:active {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: max(16px, env(safe-area-inset-bottom));
-    height: 150px;
-
+    bottom: max(12px, env(safe-area-inset-bottom));
+    height: 140px;
     z-index: 9999;
     pointer-events: none;
 }
 
 #joystick-zone {
     position: absolute;
-    left: 18px;
-    bottom: 0;
+    left: 20px;
+    bottom: 10px;
     width: 120px;
     height: 120px;
     pointer-events: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #action-zone {
     position: absolute;
-    right: 18px;
-    bottom: 0;
+    right: 20px;
+    bottom: 10px;
     width: 120px;
     height: 120px;
-    pointer-events: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: auto;
 }
 
-#action-btn {
-    width: 84px;
-    height: 84px;
-    border-radius: 50%;
-    padding: 0;
-    font-size: 0.95rem;
+#action-zone {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    width: 120px;
+    height: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #10b981;
-    color: white;
-    box-shadow: 0 6px 0 #059669, 0 10px 15px rgba(0, 0, 0, 0.3);
     pointer-events: auto;
-    z-index: 10000;
 }
 
 /* Responsive adjustments */
@@ -456,28 +448,27 @@ button:active {
         height: 120px;
     }
 
-    #joystick-zone {
-        left: 12px;
-        bottom: 0;
-        width: 110px;
-        height: 110px;
-    }
-
-    #action-zone {
-        right: 12px;
-        bottom: 0;
-        width: 110px;
-        height: 110px;
-    }
 
     #joystick-base {
         width: 100px;
         height: 100px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        position: relative;
+        backdrop-filter: blur(4px);
     }
 
     #joystick-stick {
         width: 40px;
         height: 40px;
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     #action-btn {
